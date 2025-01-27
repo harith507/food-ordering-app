@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+section.hero{
+  @apply grid;
+  grid-template-columns: .4fr .6fr;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  @apply block w-full my-2 rounded-xl;
+  @apply border p-2 border-gray-300 bg-gray-200;
+}
+
+button{
+  @apply block w-full text-gray-700 font-semibold;
+  @apply border rounded-xl border-gray-700 px-6 py-2;
+}
+button[type="submit"], .submit{
+  @apply border-0 bg-primary text-white;
+}
+
+label{
+  @apply block text-gray-700 font-semibold;
+}
+
+select{
+  @apply block w-full my-2 rounded-xl;
+  @apply border p-2 border-gray-300 bg-gray-200;
+}
