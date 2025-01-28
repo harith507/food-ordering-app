@@ -14,12 +14,21 @@ input[type="password"] {
   @apply border p-2 border-gray-300 bg-gray-200;
 }
 
+input[type="text"]:disabled,
+input[type="email"]:disabled,
+input[type="password"]:disabled {
+  @apply  bg-gray-300 cursor-not-allowed;
+}
+
 button{
   @apply block w-full text-gray-700 font-semibold;
   @apply border rounded-xl border-gray-700 px-6 py-2;
 }
 button[type="submit"], .submit{
   @apply border-0 bg-primary text-white;
+}
+button[type="submit"]:disabled, .submit{
+  @apply cursor-not-allowed bg-red-400;
 }
 
 label{
