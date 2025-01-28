@@ -1,4 +1,4 @@
-import { Roboto, Roboto_Mono } from "next/font/google";
+import { Roboto } from "next/font/google";
 import Header from "../components/layout/Header";
 import "./globals.css";
 
