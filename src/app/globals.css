@@ -39,3 +39,11 @@ select{
   @apply block w-full my-2 rounded-xl;
   @apply border p-2 border-gray-300 bg-gray-200;
 }
+
+div.tabs > * {
+  @apply bg-gray-300 text-gray-700 rounded-full py-2 px-4 mb-4;
+}
+
+div.tabs > *.active{
+  @apply bg-primary text-white;
+}

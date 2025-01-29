@@ -66,6 +66,7 @@ export default function RegisterPage() {
                     <option value="businessOwner">Business Owner</option>
                     <option value="waiter">Waiter</option>
                     <option value="kitchenStaff">Kitchen Staff</option>
+                    <option value="cashier">Cashier</option>
                 </select>
                 </label>
                 <button disabled={creatingUser} type="submit">Register</button>

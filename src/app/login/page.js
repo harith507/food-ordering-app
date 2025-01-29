@@ -18,7 +18,7 @@ export default function LoginPage() {
         await signIn("credentials", {
             username,
             password,
-            redirect: false
+            callbackUrl: "/profile" ,
         });
         setLoggingInProgress(false);
 
