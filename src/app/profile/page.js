@@ -92,14 +92,13 @@ export default function ProfilePage() {
   return (
     <section className="mt-8">
       <Tabs role={role} />
-      <h1 className="text-center text-primary text-4xl">Profile</h1>
+      <h1 className="text-center text-primary text-4xl mt-4">Profile</h1>
       <div className="max-w-md mx-auto">
         {userUpdated && (
           <h2 className="text-center mt-4 bg-green-400 p-4 rounded-lg border border-green-300">
             Profile Saved
           </h2>
         )}
-
         {updatingUser && (
           <h2 className="text-center mt-4 bg-yellow-400 p-4 rounded-lg border border-green-300">
             Profile Saving...

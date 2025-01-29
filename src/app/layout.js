@@ -2,6 +2,7 @@ import { Roboto } from "next/font/google";
 import Header from "../components/layout/Header";
 import "./globals.css";
 import { AppProvider } from "@/components/AppContext";
+import { Toaster } from "react-hot-toast";
 
 const robotoSans = Roboto({
  
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
       >
         <main className="max-w-4xl mx-auto p-4">
           <AppProvider>
+            <Toaster />
             <Header />
               {children}
                 <footer className="border-t border-gray-200 text-center p-8 mt-16">
