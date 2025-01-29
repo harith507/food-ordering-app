@@ -7,7 +7,7 @@ export default function Tabs({role}) {
     const path = usePathname();
  
     return(
-        <div className="flex gap-2 tabs max-auto justify-center">
+        <div className="flex gap-2 tabs mx-auto justify-center flex-wrap">
         <Link className={path ==="/profile" ? "active" : ""} href={'/profile'}>Profile</Link>
         {role === "businessOwner" && (
             <>

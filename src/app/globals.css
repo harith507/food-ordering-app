@@ -41,7 +41,7 @@ select{
 }
 
 div.tabs > * {
-  @apply bg-gray-300 text-gray-700 rounded-full py-2 px-4 mb-4;
+  @apply bg-gray-300 text-gray-700 rounded-full py-2 px-4 ;
 }
 
 div.tabs > *.active{
