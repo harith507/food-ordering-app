@@ -1,5 +1,6 @@
 'use client';
 import {useState} from "react";
+import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
 
@@ -10,22 +11,12 @@ export default function LoginPage() {
     async function handleFormSubmit(ev){
         ev.preventDefault();
         setLoggingInProgress(true);
-        const response = await fetch("/api/login", {
-            method: "POST",
-            body: JSON.stringify({
-                username,
-                password
-            }),
-            headers: {
-                "Content-Type": "application/json"
-            }
+        await signIn("credentials", {
+            username,
+            password,
+            redirect: false
         });
-        if (response.ok) {
-            
-        }else {
-
-        }
-        setLoggingInProgress(true);
+        setLoggingInProgress(false);
     }
 
     return(

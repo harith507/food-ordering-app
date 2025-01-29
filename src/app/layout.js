@@ -1,6 +1,7 @@
 import { Roboto } from "next/font/google";
 import Header from "../components/layout/Header";
 import "./globals.css";
+import { AppProvider } from "@/components/AppContext";
 
 const robotoSans = Roboto({
  
@@ -22,12 +23,18 @@ export default function RootLayout({ children }) {
         className={`${robotoSans}  `}
       >
         <main className="max-w-4xl mx-auto p-4">
-           <Header />
-        {children}
-        <footer className="border-t border-gray-200 text-center p-8 mt-16">
-      &copy; 2025 All rights reserved.
-    </footer>
+          <AppProvider>
+            <Header />
+              {children}
+                <footer className="border-t border-gray-200 text-center p-8 mt-16">
+                  &copy; 2025 All rights reserved.
+                </footer>
+          </AppProvider>
+            
+        
         </main>
+         
+           
         
     
         
