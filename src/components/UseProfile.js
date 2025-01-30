@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default function UseProfile() {
-   const [role, setRole] = useState("businessOwner");
+   const [role, setRole] = useState("");
      const [loading, setLoading] = useState(false);
    
      useEffect(() => {

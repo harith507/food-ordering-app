@@ -13,6 +13,8 @@ export default function CategoriesPage() {
     const [categories, setCategories] = useState([]);
     const [editingCategory, setEditingCategory] = useState(null);
 
+    console.log("creds cate", {profileLoading, profileRole});
+
     useEffect(() => {
         fetchCategories();
     },[]);
@@ -30,7 +32,7 @@ export default function CategoriesPage() {
         return <p>Loading...</p>;
     }
 
-    if(!profileRole ==="businessOwner"){
+    if(profileRole === "waiter"|| profileRole === "kitchenStaff" || profileRole === "cashier"||profileRole === " "){
         return redirect("/login");
     }
 
@@ -97,15 +99,20 @@ export default function CategoriesPage() {
 
       <div className="max-w-md mx-auto">
         <h2 className="mt-8 text-gray-500">Categories :</h2>
-        { categories?.length > 0 && categories.map(c => (
-            <button 
-            onClick={() => {setEditingCategory(c);
-                setCategoryName(c.name);}
-            }
-            className="bg-gray-200 rounded-xl p-2 px-4 flex gap-1 my-2 cursor-pointer">
-               <span>{c.name}</span>
-            </button >
-        ))}
+        {categories?.length > 0 &&
+  categories.map((c) => (
+    <button
+      key={c._id} // <-- Or whatever unique field you have in c
+      onClick={() => {
+        setEditingCategory(c);
+        setCategoryName(c.name);
+      }}
+      className="bg-gray-200 rounded-xl p-2 px-4 flex gap-1 my-2 cursor-pointer"
+    >
+      <span>{c.name}</span>
+    </button>
+  ))}
+
       </div>
     </section>
   );

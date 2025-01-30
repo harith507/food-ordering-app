@@ -13,6 +13,8 @@ export default function Tabs({role}) {
             <>
                 <Link className={path ==="/accounts" ? "active" : ""} href={'/accounts'}>Users</Link>
                 <Link className={path ==="/menu-items" ? "active" : ""} href={'/menu-items'}>Menu Items</Link>
+                {path ==="/menu-items" ? <Link className={path ==="/menu-items/new" ? "active" : ""} href={'/menu-items/new'}>Add Menu Items</Link>: ""}
+                {path ==="/menu-items/new" ? <Link className={path ==="/menu-items/new" ? "active" : ""} href={'/menu-items/new'}>Add Menu Items</Link>: ""}
                 <Link className={path ==="/categories" ? "active" : ""} href={'/categories'}>Categories</Link>
                 <Link className={path ==="/orders" ? "active" : ""} href={'/orders'} >Orders</Link>
                 <Link className={path === "/dashboard" ? "active" : ""} href={'/dashboard'}>Dashboard</Link>

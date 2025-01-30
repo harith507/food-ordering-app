@@ -1,103 +1,79 @@
 'use client';
-import EditableImage from "@/components/layout/EditableImage";
 import Tabs from "@/components/layout/Tabs";
 import UseProfile from "@/components/UseProfile";
-import { resolve } from "path";
-import { use, useMemo, useState } from "react";
-import toast from "react-hot-toast";
+import {useEffect, useState } from "react";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
 
 
 export default function MenuItemsPage() {
 
-    const[image, setImage] = useState("");
-    const[menuName, setMenuName] = useState("");
-    const[description, setDescription] = useState("");
-    const[basePrice, setBasePrice] = useState("");
-    const[availabilityStatus, setAvailabilityStatus] = useState(null);
+    const [menuItems, setMenuItems] = useState([]);
     
 
     const {loading:profileLoading, role:profileRole} = UseProfile();
+    // console.log("useprofile output",{profileLoading,profileRole});
 
-    if(profileLoading){
-        return <p>Loading...</p>;
-    }
-
-    if(!profileRole ==="businessOwner"){
-        return redirect("/login");}
-
-
-    async function handleMenuSubmit(ev){
-        ev.preventDefault();
-
-        const data = {image, menuName, description, basePrice, availabilityStatus};
-        const savingPromise = new Promise(async(resolve,reject) => {
-            const response = await fetch('/api/menu-items', {
-                method: "POST",
-                body: JSON.stringify(data),
-                headers: {"Content-Type": "application/json"},
-                });
-
-                if(response.ok){
-                    resolve();
-                }
-                else{
-                    reject();
-                }
-        });
-
-        await toast.promise(savingPromise, {
-            loading: "Saving...",
-            success: "Saved",
-            error: "Failed ",
-        })
-       
-        }
+    console.log("creds", {profileLoading, profileRole});
 
     
 
+    // if(profileRole !=="businessOwner"){
+    //   return redirect("/login");
+
+       
+    
+    // }
+
+
+    // useEffect(() => {
+    //     fetch('/api/menu-items').then(res => {
+    //         res.json().then(menuItems => setMenuItems(menuItems));
+    //         });
+    // }, []);
+
+    useEffect(() => {
+        if (!profileLoading && profileRole === "businessOwner") {
+          fetch("/api/menu-items")
+            .then((res) => res.json())
+            .then((data) => setMenuItems(data));
+        }
+        
+      }, [profileLoading, profileRole]);
+
+      console.log("menuItems", menuItems);
+
+
+    
     return(
         <section className="mt-8">
         <Tabs role={profileRole} />
-
-        <form className="mt-8 max-w-md mx-auto" onSubmit={handleMenuSubmit}>
-            <div className="grid gap-4 items-start" 
-                style={{gridTemplateColumns: "0.3fr 0.7fr"}}>
-                {/* need menu name, desc,price,availbility status@status, img */}
-                <div className="max-w-[200px]">
-                    <EditableImage link={image} setLink={setImage} />
-                </div>
-                <div className="grow">
-                    
-                    <label>
-                        Menu Name
-                    </label>
-                    <input type="text" value={menuName}  onChange={ev => setMenuName(ev.target.value)}/>
-                    <label>
-                        Description
-                    </label>
-                    <input type="text" value={description}  onChange={ev => setDescription(ev.target.value)}/>
-                    <label>
-                        Base Price
-                    </label>
-                    <input type="text" value={basePrice}  onChange={ev => setBasePrice(ev.target.value)}/>
-                    
-                    <label className="flex flex-col">
-                    Status:
-                    <select className={availabilityStatus === "true" ? "bg-green-300" : "bg-red-300" } value={availabilityStatus} onChange={ev => setAvailabilityStatus(ev.target.value)}>
-                        <option className="bg-green-400" value="true">Available</option>
-                        <option className="bg-red-400" value="false">Not Available</option>
-                    </select>
-                    </label>
-
-                    
-                    <button type="submit">Save</button>
-                </div>
-                
-
+        
+        <div className=" max-w-md mx-auto">
+            <h2 className="text-sm text-gray-500 mt-8 ">Edit Menu Item: </h2>
+            <div className="grid grid-cols-3 gap-2">
+            {menuItems.length > 0 && menuItems.map(item =>(
+                (!item.hasOwnProperty('menuName') || item.menuName === "" 
+                    ? <Link href={"/menu-items/edit/"+item._id} 
+                    className="bg-gray-200 rounded-lg p-4 " key={item._id}>
+                        <div className="relative ">
+                        <Image src={item.image} alt="No Image" width={100} height={100}  />
+                        </div>
+                        
+                        No Name
+                        </Link> 
+                    : <Link href={"/menu-items/edit/"+item._id} 
+                    className="bg-gray-200 rounded-lg p-4 " key={item._id}>
+                        <div className="relative ">
+                        <Image src={item.image} alt="No Image" width={100} height={100}  />
+                        </div>
+                        {item.menuName}
+                        </Link>)
+            ))}
             </div>
-
-        </form>
-
+            
+        </div>
         </section>
     )
 }

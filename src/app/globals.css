@@ -24,6 +24,11 @@ button{
   @apply block w-full text-gray-700 font-semibold;
   @apply border rounded-xl border-gray-700 px-6 py-2;
 }
+Link.button{
+  @apply block w-full text-gray-700 font-semibold;
+  @apply border rounded-xl border-gray-700 px-6 py-2;
+}
+
 button[type="submit"], .submit{
   @apply border-primary bg-primary text-white;
 }
