@@ -5,6 +5,7 @@ import { useEffect, useState} from "react";
 import toast from "react-hot-toast";
 import { redirect, useParams } from "next/navigation";
 import MenuItemForm from "@/components/layout/MenuItemForm";
+import DeleteButton from "@/components/DeleteButton";
 
 
 export default function EditMenuItemPage() {
@@ -12,11 +13,6 @@ export default function EditMenuItemPage() {
     const {loading:profileLoading, role:profileRole} = UseProfile();
 
     const [menuItems, setMenuItems] = useState(null);
-    const[image, setImage] = useState("");
-        const[menuName, setMenuName] = useState("");
-        const[description, setDescription] = useState("");
-        const[basePrice, setBasePrice] = useState("");
-        const[availabilityStatus, setAvailabilityStatus] = useState("");
         const[redirectToItems, setRedirectToItems] = useState(false);
         const {id} = useParams();
         
@@ -72,13 +68,50 @@ export default function EditMenuItemPage() {
         if (redirectToItems){
             return redirect("/menu-items");
         }
+
+
+        async function handleMenuDelete(){
+
+            const promise = new Promise(async(resolve,reject) => {
+
+                const res = await fetch(`/api/menu-items?_id=${id}`,{
+                    method: "DELETE"
+                });
+                if(res.ok){
+                    resolve();
+                }
+                else{
+                    reject();
+                }
+            });
+
+            toast.promise(promise, {
+                loading: "Deleting...",
+                success: "Deleted",
+                error: "Failed to delete"
+            });
+
+            setRedirectToItems(true);
+        }
+
+
     
     return(
         <section className="mt-8">
                 <Tabs role={profileRole} />
         
                 <MenuItemForm onSubmit={handleMenuSubmit} menuItems={menuItems} />
-        
+                <div className="max-w-md mx-auto mt-2">
+                    <div className="max-w-xs ml-auto pl-4">
+                        <DeleteButton 
+                        label="Delete"
+                        onDelete={handleMenuDelete} 
+                        />
+                        
+                    </div>
+                  
+                </div>
+                
                 </section>
     )
 }
