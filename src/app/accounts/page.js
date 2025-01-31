@@ -36,8 +36,8 @@ export default function UsersPage() {
                     <div key={user._id} className="bg-gray-200 rounded-lg mb-2 p-1 px-4 flex items-center gap-4">
                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 grow">
                         
-                            {!!user.username && (<span>{user.username}</span>)}
-                            {!user.username && (<span className="italic">No Name</span>)}
+                            {!!user.email && (<span>{user.email}</span>)}
+                            {!user.email && (<span className="italic">No email</span>)}
 
                         
                             {!!user.role && (<span>{user.role}</span>)}

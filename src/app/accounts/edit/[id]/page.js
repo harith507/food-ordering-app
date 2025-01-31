@@ -24,7 +24,6 @@ export default function accountEditPage() {
     function handleSaveButtonClick(ev, data){
         ev.preventDefault();
         
-
         fetch("/api/profile", {
             method: "PUT",
             body: JSON.stringify({...data,_id:id}),
@@ -33,8 +32,7 @@ export default function accountEditPage() {
             if(res.ok){
                 redirect("/accounts");
             }
-            else{
-                console.log("tolong la kaur sinbi",data);}
+         
         })
     }
     
