@@ -10,8 +10,8 @@ export default function Header() {
     // console.log(session);
     const userData = session.data?.user;
     let userName = userData?.username || userData?.email;
-    const {cartProducts} = useContext(CartContext);
-    if(userName && userName.includes('@')){
+    const { cartProducts } = useContext(CartContext);
+    if (userName && userName.includes('@')) {
         userName = userName.split('@')[0];
     }
     const status = session.status;
@@ -44,11 +44,15 @@ export default function Header() {
                     </>
                 )}
 
-                {cartProducts?.length >0 &&(
-                    <Link href={'/cart'} className="bg-primary text-white rounded-full px-8 py-2 " >  <Cart /> {cartProducts.length}
-                    
-                    </Link>
-                )}
+                <Link href={'/cart'} className="relative">
+                    <Cart />
+                    {cartProducts?.length > 0 && (
+                        <span className="absolute -top-2 -right-4 bg-primary text-white text-xs py-1 px-1 rounded-full leading-3">
+                            {cartProducts.length}
+                        </span>
+                    )}
+                </Link>
+
 
 
             </nav>

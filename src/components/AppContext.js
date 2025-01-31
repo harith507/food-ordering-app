@@ -2,15 +2,26 @@
 import { set } from "mongoose";
 import { SessionProvider } from "next-auth/react";
 import { useEffect,useState,createContext } from "react";
-
+import toast from "react-hot-toast";
 
 export const CartContext = createContext({});
 
+export function cartProductPrice(cartProduct) {
+  let total = cartProduct.basePrice || 0;
+  if (cartProduct.extraOptions?.length) {
+    for (const extra of cartProduct.extraOptions) {
+      total += extra.price || 0;
+    }
+  }
+  return total;
+}
 
 export function AppProvider({children}){
     
     const [cartProducts, setCartProducts] = useState([]);
     const ls = typeof window !== "undefined" ? window.localStorage:null;
+    
+    
 
     useEffect(() => {
       if(ls && ls.getItem('cart')){
@@ -34,8 +45,10 @@ export function AppProvider({children}){
         setCartProducts(prevCartProducts =>{
             const newCartProducts = prevCartProducts.filter((v,index)=>index !== indexToRemove);
             saveCartProductToLocalStorage(newCartProducts);
+            toast.success('Product removed from cart');
             return newCartProducts;
         })
+        toast.success('Product removed from cart');
     }
     
 
