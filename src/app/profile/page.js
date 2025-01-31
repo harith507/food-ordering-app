@@ -25,37 +25,38 @@ export default function ProfilePage() {
     }
   }, [session, status]);
 
-  async function handleProfileUpdate(ev,data){
+  async function handleProfileUpdate(ev, data) {
     ev.preventDefault();
 
-    const savingPromise = new Promise(async(resolve,reject) => {
+    const savingPromise = new Promise(async (resolve, reject) => {
+      try {
         const response = await fetch('api/profile', {
-            method: "PUT",
-            body: JSON.stringify({
-             data
-          }),
-            headers: {"Content-Type": "application/json"},
-            });
+          method: "PUT",
+          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json" },
+        });
 
-            if(response.ok){
-                resolve();
-            }
-            else{
-                reject();
-            }
+        if (response.ok) {
+          resolve();
+        } else {
+          reject();
+        }
+      } catch (error) {
+        reject(error);
+      }
     });
 
     await toast.promise(savingPromise, {
-        loading: "Saving...",
-        success: "Saved",
-        error: "Failed ",
-    })
-   
-    }
+      loading: "Saving...",
+      success: "Saved",
+      error: "Failed",
+    });
+  }
 
     if (status === 'loading' || !profileFetched) {
       return 'Loading...';
     }
+  
   
     if (status === 'unauthenticated') {
       return redirect('/login');

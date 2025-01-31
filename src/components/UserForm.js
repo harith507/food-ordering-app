@@ -1,14 +1,16 @@
 'use client';
 import { useState } from "react";
+import UseProfile from "./UseProfile";
 
 export default function UserForm({user,onSave }) {
 
-    console.log("user",user?.email);
+    console.log("user",user);
     const [email, setEmail] = useState(user?.email ||"");
       const [password, setPassword] = useState(user?.password || "");
       const [username, setUsername] = useState(user?.username || "");
       const [phone, setPhone] = useState(user?.phone || "");
       const [role, setRole] = useState(user?.role || "");
+      const {loading:profileLoading, role:profileRole} = UseProfile();
     
     return(
     <form className="block max-w-sm mx-auto" onSubmit={ev=>onSave(ev,{username,email,password,phone,role})}>
@@ -17,15 +19,24 @@ export default function UserForm({user,onSave }) {
           <input type="text" placeholder="name" value={username} onChange={ev => setUsername(ev.target.value)} />
           <input type="password" placeholder="new password" value={password} onChange={ev => setPassword(ev.target.value)} />
           <input type="text" placeholder="phone" value={phone} onChange={ev => setPhone(ev.target.value)} />
-          <label className="flex flex-col">
-            Pick a role:
-            <select value={role} onChange={ev => setRole(ev.target.value)}>
-              <option value="businessOwner">Business Owner</option>
-              <option value="waiter">Waiter</option>
-              <option value="kitchenStaff">Kitchen Staff</option>
-              <option value="cashier">Cashier</option>
-            </select>
-          </label>
+          
+          {
+            profileRole === "businessOwner"  ? (
+              <label className="flex flex-col">
+                Pick a role:
+                <select value={role} onChange={ev => setRole(ev.target.value)}>
+                <option value="businessOwner">Business Owner</option>
+                  <option value="waiter">Waiter</option>
+                  <option value="kitchenStaff">Kitchen Staff</option>
+                  <option value="cashier">Cashier</option>
+                </select>
+              </label>
+            ) : (<label className="flex flex-col">
+                Role:
+                <input type="text" value={role} readOnly />
+              </label>)
+          }
+          
         </div>
         <button type="submit" >Save</button>
     </form>

@@ -9,14 +9,13 @@ export default function UsersPage() {
     const {loading:profileLoading, role:profileRole} = UseProfile();
     const [users, setUsers] = useState([]);
     useEffect(() => {
-      fetch('/api/users').then(response => {
-        response.json().then(users =>{
+        fetch('/api/users').then(response => {
+          response.json().then(users => {
             setUsers(users);
+          });
         })
-      })
-        
-     
-    }, [])
+      }, []);
+
     
 
     if(profileLoading){

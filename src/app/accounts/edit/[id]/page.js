@@ -1,11 +1,44 @@
 'use client';
 import UseProfile from "@/components/UseProfile";
+import UserForm from "@/components/UserForm";
 import Tabs from "@/components/layout/Tabs";
+import { useEffect, useState } from "react";import { redirect, useParams } from "next/navigation";
 
 export default function accountEditPage() { 
     
     const {loading:profileLoading, role:profileRole} = UseProfile();
+    const [user,setUser] = useState(null);
+    const {id} = useParams();
 
+
+    useEffect(() => {
+        fetch("/api/users").then(res =>{
+            res.json().then(users => {
+                const user = users.find(i => i._id === id);
+                setUser(user);
+            })
+        })
+    }, []);
+    
+
+    function handleSaveButtonClick(ev, data){
+        ev.preventDefault();
+        
+
+        fetch("/api/profile", {
+            method: "PUT",
+            body: JSON.stringify({...data,_id:id}),
+            headers: {"Content-Type": "application/json"}
+        }).then(res => {
+            if(res.ok){
+                redirect("/accounts");
+            }
+            else{
+                console.log("tolong la kaur sinbi",data);}
+        })
+    }
+    
+    
     if(profileLoading){
         return <p>Loading...</p>;
     }
@@ -20,7 +53,7 @@ export default function accountEditPage() {
             <Tabs role={profileRole} />
 
             <div className="mt-8">
-                user info form
+                <UserForm user={user} onSave={handleSaveButtonClick}/>
             </div>
             
             </section>
