@@ -1,0 +1,9 @@
+{
+    "_id": { "$oid": "ObjectId" },
+    "cashierId": { "$oid": "ObjectId" },
+    "paymentMethod": "string",
+    "paymentStatus": "string",
+    "orderId": { "$oid": "ObjectId" },
+    "timestamp": { "$date": "ISODate" }
+  }
+  

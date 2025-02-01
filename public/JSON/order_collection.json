@@ -1,0 +1,18 @@
+{
+    "_id": { "$oid": "ObjectId" },
+    "status": "string",
+    "totalAmount": "number",
+    "description": "string",
+    "waiterId": { "$oid": "ObjectId" },
+    "kitchenStaffId": { "$oid": "ObjectId" },
+    "customerId": { "$oid": "ObjectId" },
+    "orderDetails": [
+      {
+        "orderDetailId": { "$oid": "ObjectId" },
+        "menuId": { "$oid": "ObjectId" },
+        "quantity": "number"
+      }
+    ],
+    "timestamp": { "$date": "ISODate" }
+  }
+  
