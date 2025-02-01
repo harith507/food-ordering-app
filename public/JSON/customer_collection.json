@@ -1,0 +1,8 @@
+{
+    "_id": { "$oid": "ObjectId" },
+    "name": "string",
+    "contactNumber": "string",
+    "numberOfPax": "number",
+    "tableNo": "number"
+  }
+  

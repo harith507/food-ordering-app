@@ -19,8 +19,33 @@ export default function Home() {
         total += cartProductPrice(p)
     }
 
-    
+    async function handleCustomerSubmit(ev) {
+        ev.preventDefault();
+        const creationPromise = new Promise(async (resolve, reject) => {
+            const data = { customerName,customerTable,customerTable };
+            if (editingCategory) {
+                data._id = editingCategory._id;
+            }
 
+            const response = await fetch("/api/categories", {
+                method: editingCategory ? "PUT" : "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+            setCategoryName("");
+            fetchCategories();
+            setEditingCategory(null);
+            if (response.ok) {
+                setCategoryName("");
+                resolve();
+            }
+            else {
+                reject();
+            }
+        });
+    }
 
 
 

@@ -13,25 +13,7 @@ export default function MenuItemsPage() {
     
 
     const {loading:profileLoading, role:profileRole} = UseProfile();
-    // console.log("useprofile output",{profileLoading,profileRole});
-
     console.log("creds", {profileLoading, profileRole});
-
-    
-
-    // if(profileRole !=="businessOwner"){
-    //   return redirect("/login");
-
-       
-    
-    // }
-
-
-    // useEffect(() => {
-    //     fetch('/api/menu-items').then(res => {
-    //         res.json().then(menuItems => setMenuItems(menuItems));
-    //         });
-    // }, []);
 
     useEffect(() => {
         if (!profileLoading && profileRole === "businessOwner") {
