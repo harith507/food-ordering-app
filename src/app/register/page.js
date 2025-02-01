@@ -1,5 +1,6 @@
 "use client";
-import { set } from "mongoose";
+import Tabs from "@/components/layout/Tabs";
+import UseProfile from "@/components/UseProfile";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -12,6 +13,7 @@ export default function RegisterPage() {
     const [creatingUser, setCreatingUser] = useState(false);
     const [userCreated, setUserCreated] = useState(true);
     const [error, setError] = useState(false);
+    const {loading:profileLoading, role:profileRole} = UseProfile();
 
     async function handleFromSubmit(ev){
         ev.preventDefault();
@@ -45,7 +47,11 @@ export default function RegisterPage() {
 
     return(
         <section className="mt-8">
-            <h1 className="text-center text-primary text-4xl ">Register</h1>
+            <Tabs role={profileRole} />
+           
+            <h1 className="text-center text-primary text-4xl p-2 ">Add New User</h1>
+           
+
             <form className="block max-w-sm mx-auto" onSubmit={handleFromSubmit}>
                 { !userCreated && (
                     <div className="my-4">
