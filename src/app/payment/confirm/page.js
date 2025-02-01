@@ -68,7 +68,8 @@ export default function OrdersEditPage() {
                             <input type="text" value="018663512" required placeholder="Phone Number" />
                             <label>Table Number</label>
                             <input type="text" value="4" required placeholder="..." />
-                            <button type="submit">Paid RM15</button>
+                            <button type="submit">Pay RM15</button>
+                            <button className="bg-red-500 mt-2 text-white border-0" >Not Paid</button>
                         </form>
                     </div>
                 </div>

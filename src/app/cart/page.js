@@ -97,6 +97,10 @@ export default function Home() {
                         <span className="text-gray-600">Subtotal  </span>
                         <span className="text-lg font-semibold pl-2">RM{total}</span>
                     </div>
+                    <div className="py-4 text-right pr-16">
+                        <span className="text-gray-600">Waiting Time to Complete  </span>
+                        <span className="text-lg font-semibold pl-2">15 Minutes</span>
+                    </div>
                 </div>
                 <div className="bg-gray-100 p-4 rounded-lg">
                     <h2>Checkout</h2>

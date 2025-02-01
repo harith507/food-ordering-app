@@ -18,6 +18,7 @@ export default function Tabs({role}) {
                 <Link className={path ==="/categories" ? "active" : ""} href={'/categories'}>Categories</Link>
                 <Link className={path.includes("/orders") ? "active" : ""} href={'/orders'} >Orders</Link>
                 <Link className={path === "/dashboard" ? "active" : ""} href={'/dashboard'}>Dashboard</Link>
+                <Link className={path ==="/payment" ? "active" : ""} href={'/payment'}>Payment</Link>
             </>
         )}
         {role === "kitchenStaff" || role === "waiter" && (
