@@ -38,8 +38,9 @@ export default function Home() {
                 cartProducts
             })
         })
-        const link = await response.json();
-        window.location.link;
+        window.location = await response.json();
+       
+      
     }
 
 
