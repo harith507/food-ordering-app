@@ -10,41 +10,36 @@ import { useState } from "react";
 export default function Home() {
 
     const { cartProducts, removeCartProduct } = useContext(CartContext);
-    const[customerName,setCustomerName] = useState('');
-    const [customerTable,setCustomerTable] = useState('');
-    const [customerPhone,setCustomerPhone] = useState('');
+    const [customerName, setCustomerName] = useState('');
+    const [customerTable, setCustomerTable] = useState('');
+    const [customerPhone, setCustomerPhone] = useState('');
+    const [dineOrTakeaway, SetDineOrTakeaway] = useState('dine');
 
     let total = 0;
     for (const p of cartProducts) {
         total += cartProductPrice(p)
     }
 
-    async function handleCustomerSubmit(ev) {
+    async function proceedToCheckout(ev) {
         ev.preventDefault();
-        const creationPromise = new Promise(async (resolve, reject) => {
-            const data = { customerName,customerTable,customerTable };
-            if (editingCategory) {
-                data._id = editingCategory._id;
-            }
 
-            const response = await fetch("/api/categories", {
-                method: editingCategory ? "PUT" : "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            });
-            setCategoryName("");
-            fetchCategories();
-            setEditingCategory(null);
-            if (response.ok) {
-                setCategoryName("");
-                resolve();
-            }
-            else {
-                reject();
-            }
-        });
+        let customerData = { customerName, customerPhone, dineOrTakeaway };
+        if (dineOrTakeaway === 'dine') {
+           
+            customerData = { ...customerData, customerTable };
+        }
+       
+
+        const response = await fetch('api/checkout',{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                customerData,
+                cartProducts
+            })
+        })
+        const link = await response.json();
+        window.location.link;
     }
 
 
@@ -94,19 +89,33 @@ export default function Home() {
 
                     ))}
                     <div className="py-4 text-right pr-16">
-                        <span className="text-gray-600">Subtotal  </span>
+                        <span className="text-gray-600">Total  </span>
                         <span className="text-lg font-semibold pl-2">RM{total}</span>
                     </div>
                 </div>
                 <div className="bg-gray-100 p-4 rounded-lg">
                     <h2>Checkout</h2>
-                    <form>
+                    <form onSubmit={proceedToCheckout}>
                         <label>Name</label>
                         <input type="text" value={customerName} onChange={ev => setCustomerName(ev.target.value)} placeholder="Name" />
                         <label>Phone Number</label>
                         <input type="text" value={customerPhone} onChange={ev => setCustomerPhone(ev.target.value)} required placeholder="Phone Number" />
-                        <label>Table Number</label>
-                        <input type="text" value={customerTable} onChange={ev => setCustomerTable(ev.target.value)} required placeholder="..." />
+                        <label className="flex flex-col">
+                            Dine in Or Takeaway:
+                            <select value={dineOrTakeaway} onChange={ev => SetDineOrTakeaway(ev.target.value)}>
+                                <option value="dine">Dine In</option>
+                                <option value="takeaway">Takeaway</option>
+                            </select>
+                        </label>
+                        {dineOrTakeaway === 'dine' && (
+                            <>
+                                <label>Table Number</label>
+                                <input type="text" value={customerTable} onChange={ev => setCustomerTable(ev.target.value)} required placeholder="..." />
+                            </>
+                        )}
+
+
+
                         <button type="submit">Pay RM{total}</button>
                     </form>
                 </div>
