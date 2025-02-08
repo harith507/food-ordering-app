@@ -1,0 +1,10 @@
+{
+    "_id": { "$oid": "ObjectId" },
+    "arrivalRate": "number",
+    "serviceRate": "number",
+    "utilizationRate": "number",
+    "timestamp": { "$date": "ISODate" },
+    "orderId": { "$oid": "ObjectId" },
+    "noInQ": "number"
+  }
+  
