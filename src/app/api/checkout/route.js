@@ -1,3 +1,4 @@
+import { metadata } from "@/app/layout";
 import { MenuItem } from "@/models/menuItem";
 import { Order } from "@/models/Order";
 import mongoose from "mongoose";
@@ -7,21 +8,24 @@ export async function POST(req) {
     mongoose.connect(process.env.MONGO_URL);
 
     const {cartProducts,customerData} = await req.json();
-    console.log('cusotmer Data',customerData);
+    
     // convert dineOrTakeaway to boolean because form is crazyyyy
     if (customerData.dineOrTakeaway === 'dine') {
         customerData.dineOrTakeaway = true;
     } else {
         customerData.dineOrTakeaway = false;
     }
-    await Order.create({
+    const orderDoc = await Order.create({
         cartProducts,
-        customerName: customerData.name,
-        customerPhone: customerData.phone,
-        tableNumber: customerData.tableNumber,
+        customerName: customerData.customerName,
+        customerPhone: customerData.customerPhone,
+        tableNumber: customerData.customerTable,
         isDineIn: customerData.dineOrTakeaway,
         paid: false,
      });
+
+     console.log('Order Doc', orderDoc);
+     console.log('cusotmer Data', customerData);
 
      const stripeLineItems = [];
      for (const cartProduct of cartProducts) {
@@ -53,9 +57,12 @@ export async function POST(req) {
         line_items: stripeLineItems,
         mode: 'payment',
         customer_name: customerData.name,
-        success_url: process.env.NEXTAUTH_URL + 'cart?success=1',
+        success_url: process.env.NEXTAUTH_URL + 'orders/'+ orderDoc._id.toString() + '?clear-cart=1',
         cancel_url: process.env.NEXTAUTH_URL + 'cart?cancel=1', 
-        metadata:{orderId : Order._id},
+        metadata:{orderId : orderDoc._id.toString()},
+        payment_intent_data: {
+            metadata: {orderId: orderDoc._id.toString()},
+        }
         
     });
 

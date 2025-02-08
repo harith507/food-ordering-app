@@ -1,11 +1,12 @@
 'use client'
 import SectionHeaders from "@/components/layout/SectionHeaders";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { CartContext } from "@/components/AppContext";
 import Image from "next/image";
 import Trash from "@/components/icons/Trash";
 import { cartProductPrice } from "@/components/AppContext";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Home() {
 
@@ -20,6 +21,14 @@ export default function Home() {
         total += cartProductPrice(p)
     }
 
+    useEffect(()=>{
+        if (typeof window !== 'undefined'){
+            if (window.location.href.includes('cancel=1')){
+                toast.error('Your payment failed')
+        }
+    }
+    },[])
+
     async function proceedToCheckout(ev) {
         ev.preventDefault();
 
@@ -29,18 +38,45 @@ export default function Home() {
             customerData = { ...customerData, customerTable };
         }
        
-
-        const response = await fetch('api/checkout',{
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                customerData,
-                cartProducts
-            })
+        const promise = new Promise((resolve, reject)=>{
+            fetch('api/checkout',{
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    customerData,
+                    cartProducts
+                })
+            }).then(async(response)=>{
+                if(response.ok){
+                    resolve();
+                    window.location = await response.json();
+                } else {
+                    reject();
+                }
+                });
         })
-        window.location = await response.json();
+
+        toast.promise(promise,{
+            loading: 'Processing your order',
+            success: 'Redirecting to payment page',
+            error: 'Something went wrong, please try again later'
+        })
+        
+        
        
       
+    }
+
+
+    if (cartProducts?.length === 0) {
+        return (
+            <section className="mt-8 text-center">
+            
+                <SectionHeaders mainHeader="Cart" />
+                <p className="mt-4">Your cart is empty, add your food and drinks now !</p>
+
+            </section>
+        )
     }
 
 
