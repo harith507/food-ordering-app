@@ -1,9 +1,0 @@
-{
-  "_id": { "$oid": "ObjectId" },
-  "username": "string",
-  "password": "string",
-  "role": "string",  
-  "email": "string",
-  "phoneNumber": "string",
-  "isActive": true
-}
