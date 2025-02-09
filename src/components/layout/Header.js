@@ -25,6 +25,7 @@ export default function Header() {
                 <Link className="text-primary font-semibold text-2xl" href="/"> SENJA </Link>
                 <Link href={'/'}>Home</Link>
                 <Link href={'/menu'}>Menu</Link>
+                <Link href={'/orders'}>Order</Link>
                 <Link href={'/#about'}>About</Link>
 
             </nav>
