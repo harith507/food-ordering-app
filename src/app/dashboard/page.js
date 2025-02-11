@@ -1,8 +1,10 @@
 'use client';
 import UseProfile from "@/components/UseProfile";
 import Tabs from "@/components/layout/Tabs";
-import Chart from "react-apexcharts";
+import dynamic from 'next/dynamic'; // added
 import { useEffect, useState } from "react";
+
+const Chart = dynamic(() => import("react-apexcharts"), { ssr: false }); // added
 
 export default function DashboardPage() { 
 
@@ -43,84 +45,64 @@ export default function DashboardPage() {
 
     
     if(profileLoading) return <div>Loading...</div>
-    const chartConfig = {
-        type: "line",
-        height: 240,
-        series: [
-          {
-            name: "Sales",
-            data: chartData.series,
-          },
-        ],
-        options: {
-          chart: {
-            toolbar: {
-              show: false,
-            },
-          },
-          title: {
-            show: "",
-          },
-          dataLabels: {
-            enabled: false,
-          },
-          colors: ["#020617"],
-          stroke: {
-            lineCap: "round",
-            curve: "smooth",
-          },
-          markers: {
-            size: 0,
-          },
-          xaxis: {
-            axisTicks: {
-              show: false,
-            },
-            axisBorder: {
-              show: false,
-            },
-            labels: {
-              style: {
-                colors: "#616161",
-                fontSize: "12px",
-                fontFamily: "inherit",
-                fontWeight: 400,
+
+    if(profileRole !== "businessOwner") {
+        return <div>Please return, you have no authorization on this page!</div>
+    }
+
+    // Removed variable chartConfig and added the function getChartConfig:
+    function getChartConfig() {
+        return {
+            type: "line",
+            height: 240,
+            series: [
+              {
+                name: "Sales",
+                data: chartData.series,
               },
-            },
-            categories: chartData.categories, // Use computed categories
-          },
-          yaxis: {
-            labels: {
-              style: {
-                colors: "#616161",
-                fontSize: "12px",
-                fontFamily: "inherit",
-                fontWeight: 400,
+            ],
+            options: {
+              chart: { toolbar: { show: false } },
+              title: { show: "" },
+              dataLabels: { enabled: false },
+              colors: ["#020617"],
+              stroke: { lineCap: "round", curve: "smooth" },
+              markers: { size: 0 },
+              xaxis: {
+                axisTicks: { show: false },
+                axisBorder: { show: false },
+                labels: {
+                  style: {
+                    colors: "#616161",
+                    fontSize: "12px",
+                    fontFamily: "inherit",
+                    fontWeight: 400,
+                  },
+                },
+                categories: chartData.categories,
               },
-            },
-          },
-          grid: {
-            show: true,
-            borderColor: "#dddddd",
-            strokeDashArray: 5,
-            xaxis: {
-              lines: {
+              yaxis: {
+                labels: {
+                  style: {
+                    colors: "#616161",
+                    fontSize: "12px",
+                    fontFamily: "inherit",
+                    fontWeight: 400,
+                  },
+                },
+              },
+              grid: {
                 show: true,
+                borderColor: "#dddddd",
+                strokeDashArray: 5,
+                xaxis: { lines: { show: true } },
+                padding: { top: 5, right: 20 },
               },
+              fill: { opacity: 0.8 },
+              tooltip: { theme: "dark" },
             },
-            padding: {
-              top: 5,
-              right: 20,
-            },
-          },
-          fill: {
-            opacity: 0.8,
-          },
-          tooltip: {
-            theme: "dark",
-          },
-        },
-      };
+        };
+    }
 
       function CalculateWaitTime(){
         const placedCount = orders.filter(order => order.status === 'placed').length;
@@ -140,10 +122,6 @@ export default function DashboardPage() {
 
         return waitTime.toFixed(2) ; //minutes
         
-    }
-
-    if(profileRole !== "businessOwner") {
-        <div>Please return, you have no auhtorization on this page!</div>
     }
 
 
@@ -190,7 +168,7 @@ export default function DashboardPage() {
             </div>
             <div className="bg-gray-300 mt-2 rounded-lg p-4">
             <span className="text-lg">Daily Sales</span>
-            <Chart {...chartConfig} />
+            <Chart {...getChartConfig()} />
             </div>
         </div>
      </section>

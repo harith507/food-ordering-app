@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Right from "../icons/Right";
 
-export default function Hero() {
+export default function Hero(imageUrl) {
     return(
         <>
             <section className="hero mt-4">
@@ -24,15 +24,6 @@ export default function Hero() {
                             <Right  />
                         </button>
                     </div>
-                </div>
-                
-                <div className="relative">
-                <Image 
-                src={"/nasikerabu.png"} 
-                layout={'fill'} 
-                objectFit={'contain'} 
-                alt={"Nasi Kerabu"}>
-                </Image>
                 </div>
                 
             </section>
