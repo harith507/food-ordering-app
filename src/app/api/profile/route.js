@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { User } from "@/models/User";
-import bcrypt from "bcrypt";
 
 export async function PUT(req) {
   mongoose.connect(process.env.MONGO_URL);

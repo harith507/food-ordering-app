@@ -1,4 +1,3 @@
-import { metadata } from "@/app/layout";
 import { MenuItem } from "@/models/menuItem";
 import { Order } from "@/models/Order";
 import mongoose from "mongoose";
