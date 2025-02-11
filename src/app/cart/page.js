@@ -120,7 +120,7 @@ export default function Home() {
                         {dineOrTakeaway === 'dine' && (
                             <>
                                 <label>Table Number</label>
-                                <input type="text" required value={customerTable} onChange={ev => setCustomerTable(ev.target.value)} required placeholder="..." />
+                                <input type="text" required value={customerTable} onChange={ev => setCustomerTable(ev.target.value)} placeholder="..." />
                             </>
                         )}
 
