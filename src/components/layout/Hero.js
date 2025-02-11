@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Link from "next/link";
 import Right from "../icons/Right";
 
 export default function Hero(imageUrl) {
