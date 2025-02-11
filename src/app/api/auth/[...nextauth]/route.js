@@ -7,7 +7,6 @@ import bcrypt from "bcrypt";
 export const authOptions = {
   secret: process.env.SECRET,
   providers: [
-
     CredentialsProvider({
       name: 'Credentials',
       id: 'credentials',
@@ -18,21 +17,22 @@ export const authOptions = {
       async authorize(credentials, req) {
         const email = credentials?.email;
         const password = credentials?.password;
-
         mongoose.connect(process.env.MONGO_URL);
-        const user = await User.findOne({email});
+        const user = await User.findOne({ email });
         const passwordOk = user && bcrypt.compareSync(password, user.password);
-
         if (passwordOk) {
           return user;
         }
-
-        return null
+        return null;
       }
     })
   ],
 };
 
-const handler = NextAuth(authOptions);
+export async function GET(request) {
+  return NextAuth(request, authOptions);
+}
 
-export { handler as GET, handler as POST }
+export async function POST(request) {
+  return NextAuth(request, authOptions);
+}
