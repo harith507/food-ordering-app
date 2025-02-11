@@ -17,6 +17,7 @@ export async function POST(req) {
     const orderDoc = await Order.create({
         cartProducts,
         customerName: customerData.customerName,
+        customerEmail: customerData.customerEmail,
         customerPhone: customerData.customerPhone,
         tableNumber: customerData.customerTable,
         isDineIn: customerData.dineOrTakeaway,
@@ -60,7 +61,7 @@ export async function POST(req) {
     const stripeSession = await stripe.checkout.sessions.create({
         line_items: stripeLineItems,
         mode: 'payment',
-        customer_name: customerData.customerName, // corrected customer field
+        customer_email: customerData.customerEmail, // corrected customer field
         success_url: `${formattedBaseUrl}orders/${orderDoc._id}?clear-cart=1`,
         cancel_url: `${formattedBaseUrl}cart?cancel=1`, 
         metadata: { orderId: orderDoc._id.toString() },

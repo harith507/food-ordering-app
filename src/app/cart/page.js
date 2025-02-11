@@ -16,6 +16,7 @@ export default function Home() {
     const [customerTable, setCustomerTable] = useState('');
     const [customerPhone, setCustomerPhone] = useState('');
     const [dineOrTakeaway, SetDineOrTakeaway] = useState('dine');
+    const[customerEmail, setcustomerEmail] = useState('');
 
     let total = 0;
     for (const p of cartProducts) {
@@ -33,7 +34,7 @@ export default function Home() {
     async function proceedToCheckout(ev) {
         ev.preventDefault();
 
-        let customerData = { customerName, customerPhone, dineOrTakeaway };
+        let customerData = { customerName, customerEmail , customerPhone, dineOrTakeaway };
         if (dineOrTakeaway === 'dine') {
 
             customerData = { ...customerData, customerTable };
@@ -104,7 +105,9 @@ export default function Home() {
                     <h2>Checkout</h2>
                     <form onSubmit={proceedToCheckout}>
                         <label>Name</label>
-                        <input type="text" value={customerName} onChange={ev => setCustomerName(ev.target.value)} placeholder="Name" />
+                        <input type="text" value={customerName} onChange={ev => setCustomerName(ev.target.value)} required placeholder="Name" />
+                        <label>Email</label>
+                        <input type="email" value={customerEmail} onChange={ev => setcustomerEmail(ev.target.value)} required placeholder="Email" />
                         <label>Phone Number</label>
                         <input type="text" value={customerPhone} onChange={ev => setCustomerPhone(ev.target.value)} required placeholder="Phone Number" />
                         <label className="flex flex-col">
