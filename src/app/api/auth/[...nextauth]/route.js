@@ -4,7 +4,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 
-export const authOptions = {
+const createAuthOptions = () => ({
   secret: process.env.SECRET,
   providers: [
     CredentialsProvider({
@@ -27,12 +27,12 @@ export const authOptions = {
       }
     })
   ],
-};
+});
 
 export async function GET(request) {
-  return NextAuth(request, authOptions);
+  return NextAuth(request, createAuthOptions());
 }
 
 export async function POST(request) {
-  return NextAuth(request, authOptions);
+  return NextAuth(request, createAuthOptions());
 }
