@@ -43,6 +43,11 @@ export default function DashboardPage() {
 
     
     if(profileLoading) return <div>Loading...</div>
+
+    if(profileRole !== "businessOwner") {
+        return <div>Please return, you have no authorization on this page!</div>
+    }
+
     const chartConfig = {
         type: "line",
         height: 240,
@@ -140,10 +145,6 @@ export default function DashboardPage() {
 
         return waitTime.toFixed(2) ; //minutes
         
-    }
-
-    if(profileRole !== "businessOwner") {
-        <div>Please return, you have no auhtorization on this page!</div>
     }
 
 
