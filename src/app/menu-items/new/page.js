@@ -10,8 +10,6 @@ export default function NewMenuItemPage(){
         const {loading:profileLoading, role:profileRole} = UseProfile();
         const[availabilityStatus, setAvailabilityStatus] = useState("true");
         const[redirectToItems, setRedirectToItems] = useState(false);
-        
-        console.log("availabilityStatus",{availabilityStatus});
 
     if(profileLoading){
         return <p>Loading...</p>;

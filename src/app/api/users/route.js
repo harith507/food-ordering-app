@@ -6,3 +6,15 @@ export async function GET(){
     const users = await User.find();
     return Response.json(users);
 }
+
+// New PATCH endpoint to update user status
+export async function PATCH(request) {
+    mongoose.connect(process.env.MONGO_URL);
+    const { id, active } = await request.json();
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { active },
+      { new: true }
+    );
+    return Response.json(updatedUser);
+}

@@ -17,7 +17,9 @@ export default function PaymentHistoryPage() {
 
     }, []);
 
-    console.log(orders);
+    if(profileRole !== "cashier" || profileRole !== "businessOwner") {
+        <div>Please return, you have no auhtorization on this page!</div>
+    }
 
     return (
         <section className="mt-8 max-w-4xl mx-auto">
@@ -49,11 +51,12 @@ export default function PaymentHistoryPage() {
                     <div className="mt-4">
                         <SectionHeaders subHeader="Order Items" />
                         {order.cartProducts.map((product, index) => (
-                            <div key={product._id} className="flex justify-between">
+                            <div key={product._id} className="flex flex-col justify-between">
                                 <p>{index + 1}. {product.menuName}</p>
                                 <p> RM{product.basePrice}</p>
                                 { product.extraOptions.length > 0 && product.extraOptions.map((option,index) => (
                                   <>
+                                  
                                     <p>{index+1}. {option.name} </p>
                                     <p>RM{option.price} </p>
                                   </>  

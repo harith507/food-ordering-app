@@ -14,7 +14,7 @@ export default function CategoriesPage() {
     const [categories, setCategories] = useState([]);
     const [editingCategory, setEditingCategory] = useState(null);
 
-    console.log("creds cate", { profileLoading, profileRole });
+ 
 
     useEffect(() => {
         fetchCategories();
@@ -24,7 +24,7 @@ export default function CategoriesPage() {
         fetch('/api/categories').then(res => {
             res.json().then(categories => {
                 setCategories(categories);
-                console.log("categories", categories);
+               
             })
         })
     }

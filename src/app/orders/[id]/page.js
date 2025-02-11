@@ -62,10 +62,6 @@ export default function OrderPage() {
         }
     }
 
-
-    console.log(order);
-
-
     async function handleRemoveOrder() {
 
         const newStatus = order?.status === 'cancelled' ? 'placed' : 'cancelled';
@@ -91,7 +87,7 @@ export default function OrderPage() {
 
         await toast.promise(creationPromise, {
             loading: newStatus === 'cancelled' ? 'Cancelling Order' : 'Reactivating Order',
-            success: newStatus === 'cancelled' ? "Order Reactivated" : "Order Cancelled",
+            success: newStatus === 'cancelled' ? "Order Cancelled" : "Order Reactivated",
             error: "Error",
         });
 
@@ -224,7 +220,7 @@ export default function OrderPage() {
 
     return (
         <section className="max-w-2xl mx-auto mt-8">
-            <div className="text-center">
+            <div className="text-center mb-8">
                 <SectionHeaders mainHeader="Order Details" />
                 <Tabs role={profileRole} />
             </div>
@@ -273,7 +269,7 @@ export default function OrderPage() {
                                     <button type="button" onClick={() => updatePaymentStatus()} >Pay At Counter RM{total}</button>
                                 </>
 
-                                ) : <button className={order.paid ? 'bg-green-500' : 'bg-red-500'}>Paid RM{total}</button>}
+                                ) : <button disabled='true' className={order.paid ? 'bg-green-500' : 'bg-red-500'}>Paid RM{total}</button>}
 
 
                                 {profileRole === 'businessOwner' && (

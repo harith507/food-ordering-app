@@ -121,6 +121,32 @@ export default function DashboardPage() {
           },
         },
       };
+
+      function CalculateWaitTime(){
+        const placedCount = orders.filter(order => order.status === 'placed').length;
+        const inProgressCount = orders.filter(order => order.status === 'in-progress').length;
+        const completeCount = orders.filter(order => order.status === 'complete').length;
+
+ 
+        let waitTime = 0;
+        //per hour
+        const arrivalRate = placedCount + inProgressCount + completeCount;
+        const serviceRate = 15;
+        const Lq = Math.pow(arrivalRate, 2) / (serviceRate*( serviceRate - arrivalRate));
+        waitTime = (Lq / arrivalRate)*60;
+        
+
+       
+
+        return waitTime.toFixed(2) ; //minutes
+        
+    }
+
+    if(profileRole !== "businessOwner") {
+        <div>Please return, you have no auhtorization on this page!</div>
+    }
+
+
     return(
     <section className="mt-8 "> 
         <Tabs role={profileRole} />
@@ -158,8 +184,8 @@ export default function DashboardPage() {
                     </span>
                 </div>
                 <div className="bg-gray-300 rounded-lg py-4 px-3 flex flex-col">
-                <span className="text-lg">Average Wait Time</span>
-                <span className="text-lg text-center"></span>
+                <span className="text-lg">Current Wait Time</span>
+                <span className="text-lg text-center">{CalculateWaitTime() ==="NaN"? 0:CalculateWaitTime()} Minutes</span>
                 </div>
             </div>
             <div className="bg-gray-300 mt-2 rounded-lg p-4">

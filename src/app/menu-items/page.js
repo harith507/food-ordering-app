@@ -13,7 +13,7 @@ export default function MenuItemsPage() {
     
 
     const {loading:profileLoading, role:profileRole} = UseProfile();
-    console.log("creds", {profileLoading, profileRole});
+    
 
     useEffect(() => {
         if (!profileLoading && profileRole === "businessOwner") {
@@ -24,7 +24,7 @@ export default function MenuItemsPage() {
         
       }, [profileLoading, profileRole]);
 
-      console.log("menuItems", menuItems);
+     
 
 
     
