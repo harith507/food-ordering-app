@@ -18,7 +18,8 @@ export async function GET(req) {
         const since = new Date();
         since.setHours(since.getHours() - 24);
         return Response.json(await Order.find({
-            createdAt: { $gte: since }
+            
+            updatedAt: { $gte: since }
         }));
     }
 

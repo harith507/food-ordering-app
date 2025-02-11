@@ -11,8 +11,8 @@ export default function OrderProgressTile({ order, onProceed, onReverse }) {
                 <Link href={"/orders/"+order._id}>
                     <span className="text-sm font-semibold">Table {order.tableNumber}</span>
                     <div className="flex flex-col gap-1">
-                        <span className="text-sm">Created: {new Date(order.createdAt).toLocaleString("en-GB", { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: "Asia/Kuala_Lumpur" })}</span>
-                        <span className="text-sm">Created: {new Date(order.createdAt).toLocaleString("en-GB", { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: "Asia/Kuala_Lumpur" })}</span>
+                        <span className="text-sm">Created: {new Date(order.updatedAt).toLocaleString("en-GB", { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: "Asia/Kuala_Lumpur" })}</span>
+                        <span className="text-sm">Estimate : {new Date(order.updatedAt).toLocaleString("en-GB", { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: "Asia/Kuala_Lumpur" })}</span>
                         <span className="text-sm font-semibold">{order.isDineIn ? 'DINE IN': 'TAKEAWAY'}</span>
                     </div>
                     {order.cartProducts.map((product,index) => (

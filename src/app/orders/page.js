@@ -4,12 +4,15 @@ import SectionHeaders from "@/components/layout/SectionHeaders";
 import { useEffect } from "react";
 import { useState } from "react";
 import Link from "next/link";
+import Tabs from "@/components/layout/Tabs";
+import UseProfile from "@/components/UseProfile";
 
 
 
 export default function OrdersPage() {
 
     const [orders, setOrders] = useState([]);
+    const { loading: profileLoading, role: profileRole } = UseProfile();
 
 
 
@@ -127,10 +130,19 @@ export default function OrdersPage() {
         <section className="mt-8 max-w-4xl">
             <div className="text-center">
                 <SectionHeaders mainHeader="Order Progress" />
+                <Link href="/orders/history"> 
+                <SectionHeaders subHeader="Order History" />    
+                </Link>
+                <Tabs role={profileRole}/>
+                
 
+                
+                   
                 <div className=" max-w-6xl mx-auto mt-8">
                     <div className=" max-w-auto mx-auto">
+                        
                         <div className="grid grid-cols-4 gap-2 mt-4">
+                            
                             <div className="bg-gray-400 rounded-lg p-4 ">
                                 <h1 className="text-2xl text-center"> Placed</h1>
 

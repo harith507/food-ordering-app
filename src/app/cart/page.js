@@ -40,7 +40,7 @@ export default function Home() {
         }
 
         const promise = new Promise((resolve, reject) => {
-            fetch('api/checkout', {
+            fetch('/api/checkout', {  // Updated URL with a leading slash
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -62,12 +62,7 @@ export default function Home() {
             success: 'Redirecting to payment page',
             error: 'Something went wrong, please try again later'
         })
-
-
-
-
     }
-
 
     if (cartProducts?.length === 0) {
         return (
@@ -79,8 +74,6 @@ export default function Home() {
             </section>
         )
     }
-
-
 
     return (
         <section className="mt-8 ">
@@ -128,9 +121,8 @@ export default function Home() {
                             </>
                         )}
 
-
-
-                        <button type="submit">Pay RM{total}</button>
+                        <button type="submit">Pay Online RM{total}</button>
+                        <div className="mt-4"><span>Please go to cashier counter for cash payment</span></div>
                     </form>
                 </div>
             </div>

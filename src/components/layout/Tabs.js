@@ -16,7 +16,8 @@ export default function Tabs({role}) {
                 {path ==="/menu-items" ? <Link className={path ==="/menu-items/new" ? "active" : ""} href={'/menu-items/new'}>Add Menu Items</Link>: ""}
                 {path ==="/menu-items/new" ? <Link className={path ==="/menu-items/new" ? "active" : ""} href={'/menu-items/new'}>Add Menu Items</Link>: ""}
                 <Link className={path ==="/categories" ? "active" : ""} href={'/categories'}>Categories</Link>
-                <Link className={path ==="/orders" ? "active" : ""} href={'/orders'} >Orders</Link>
+                <Link className={path.includes("/orders") ? "active" : ""} href={'/orders'} >Orders</Link>
+                <Link className={path.includes("/payment") ? "active" : ""} href={'/payment'}>Payment</Link>
                 <Link className={path === "/dashboard" ? "active" : ""} href={'/dashboard'}>Dashboard</Link>
             </>
         )}
