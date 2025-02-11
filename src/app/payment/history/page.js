@@ -51,11 +51,12 @@ export default function PaymentHistoryPage() {
                     <div className="mt-4">
                         <SectionHeaders subHeader="Order Items" />
                         {order.cartProducts.map((product, index) => (
-                            <div key={product._id} className="flex justify-between">
+                            <div key={product._id} className="flex flex-col justify-between">
                                 <p>{index + 1}. {product.menuName}</p>
                                 <p> RM{product.basePrice}</p>
                                 { product.extraOptions.length > 0 && product.extraOptions.map((option,index) => (
                                   <>
+                                  
                                     <p>{index+1}. {option.name} </p>
                                     <p>RM{option.price} </p>
                                   </>  
