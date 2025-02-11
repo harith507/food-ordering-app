@@ -7,7 +7,6 @@ import Cart from "../icons/Cart";
 
 export default function Header() {
     const session = useSession();
-    // console.log(session);
     const userData = session.data?.user;
     let userName = userData?.username || userData?.email;
     const { cartProducts } = useContext(CartContext);

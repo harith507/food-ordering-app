@@ -8,7 +8,6 @@ import toast from "react-hot-toast";
 
 export default function ProfilePage() {
   const { data: session, status } = useSession();
-  console.log("profile session",useSession());
 
   const [user,setUser] = useState(null);
 
@@ -62,13 +61,6 @@ export default function ProfilePage() {
       return redirect('/login');
     }
 
-    
-
-      
-
-  
-
-  console.log(session);
 
   return (
     <section className="mt-8">

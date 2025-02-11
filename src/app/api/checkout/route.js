@@ -24,9 +24,6 @@ export async function POST(req) {
         paid: false,
      });
 
-     console.log('Order Doc', orderDoc);
-     console.log('cusotmer Data', customerData);
-
      const stripeLineItems = [];
      for (const cartProduct of cartProducts) {
         

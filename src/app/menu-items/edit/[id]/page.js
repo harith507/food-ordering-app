@@ -14,10 +14,7 @@ export default function EditMenuItemPage() {
 
     const [menuItems, setMenuItems] = useState(null);
         const[redirectToItems, setRedirectToItems] = useState(false);
-        const {id} = useParams();
-        
-        // console.log("availabilityStatus",{availabilityStatus});
-        
+        const {id} = useParams(); 
 
         useEffect(() => {
             fetch("/api/menu-items").then(res =>{

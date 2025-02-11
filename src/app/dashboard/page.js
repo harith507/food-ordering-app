@@ -142,6 +142,10 @@ export default function DashboardPage() {
         
     }
 
+    if(profileRole !== "businessOwner") {
+        <div>Please return, you have no auhtorization on this page!</div>
+    }
+
 
     return(
     <section className="mt-8 "> 

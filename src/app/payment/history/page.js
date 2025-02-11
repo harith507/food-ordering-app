@@ -17,7 +17,9 @@ export default function PaymentHistoryPage() {
 
     }, []);
 
-    console.log(orders);
+    if(profileRole !== "cashier" || profileRole !== "businessOwner") {
+        <div>Please return, you have no auhtorization on this page!</div>
+    }
 
     return (
         <section className="mt-8 max-w-4xl mx-auto">

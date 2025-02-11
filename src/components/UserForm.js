@@ -4,7 +4,6 @@ import UseProfile from "./UseProfile";
 
 export default function UserForm({user,onSave }) {
 
-    console.log("user",user);
     const [email, setEmail] = useState(user?.email ||"");
       const [password, setPassword] = useState( "");
       const [username, setUsername] = useState(user?.username || "");

@@ -62,10 +62,6 @@ export default function OrderPage() {
         }
     }
 
-
-    console.log(order);
-
-
     async function handleRemoveOrder() {
 
         const newStatus = order?.status === 'cancelled' ? 'placed' : 'cancelled';

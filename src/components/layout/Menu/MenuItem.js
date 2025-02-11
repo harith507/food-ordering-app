@@ -47,10 +47,6 @@ export default function MenuItem(menuItem) {
       selectedPrice += extra.price;
     }
   }
-  
-  console.log(menuItem);
-
-
 
     return (
       <>
