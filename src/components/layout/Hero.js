@@ -15,10 +15,13 @@ export default function Hero(imageUrl) {
                         A restaurant that serves the best food in town
                     </p>
                     <div className="flex gap-4 text-sm">
+                        <Link href="/menu"> 
                         <button className=" justify-center bg-primary uppercase text-white rounded-full px-4 py-2 flex gap-2  items-center">
                             Order Now
                             <Right  />
                         </button>
+                        </Link>
+                        
                         <button className="flex border-0 items-center gap-2 py-2 text-gray-600 font-semibold">
                             Learn More
                             <Right  />
