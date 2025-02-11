@@ -236,7 +236,7 @@ export default function OrderPage() {
 
                         ))}
                         <div className=" flex flex-col gap-2">
-                        <DeleteButton label={order.status !== 'cancelled' ? 'Cancel Order' : 'Reactivate Order'} onDelete={handleRemoveOrder} />
+                        {profileRole === 'businessOwner' && ( <DeleteButton label={order.status !== 'cancelled' ? 'Cancel Order' : 'Reactivate Order'} onDelete={handleRemoveOrder} /> )} 
                         {profileRole === 'businessOwner' && order.paid !== 'true' && (<DeleteButton label={order.status !== 'cancelled' ? 'Cancel Payment' : 'Reactivate Payment'} onDelete={handleUpdatepayment} />)}
 
                         </div>
@@ -264,12 +264,10 @@ export default function OrderPage() {
                                 </>
                             )}
                             <div className="flex flex-col gap-2">
-                                {!order.paid ? (<>
+                                {order.paid ==='false' ? (<>
                                     <button type="submit" >Pay Online RM{total}</button>
                                     <button type="button" onClick={() => updatePaymentStatus()} >Pay At Counter RM{total}</button>
-                                </>
-
-                                ) : <button disabled='true' className={order.paid ? 'bg-green-500' : 'bg-red-500'}>Paid RM{total}</button>}
+                                </>) : <button disabled='true' className={order.paid ? 'bg-green-500' : 'bg-green-500'}>Paid RM{total}</button>}
 
 
                                 {profileRole === 'businessOwner' && (

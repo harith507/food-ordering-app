@@ -82,7 +82,7 @@ export default function Home() {
                 <SectionHeaders mainHeader="Cart" />
             </div>
 
-            <div className="grid gap-4 grid-cols-2">
+            <div className="grid gap-4 grid-cols-2 responsive-grid">
                 <div>
                     {cartProducts?.length === 0 && (
                         <div> No Products in your shopping cart </div>
@@ -129,6 +129,13 @@ export default function Home() {
                     </form>
                 </div>
             </div>
+            <style jsx>{`
+                @media screen and (max-width: 600px) {
+                    .responsive-grid {
+                        grid-template-columns: 1fr !important;
+                    }
+                }
+            `}</style>
         </section>
     )
 }
