@@ -33,20 +33,6 @@ export const authOptions = {
   ],
 };
 
-export async function isAdmin() {
-  const session = await getServerSession(authOptions);
-  const role = session?.user?.role;
-  if (role !=="businessOwner") {
-    return false;
-  }
-  const userInfo = await User.findOne({email:userEmail});
-  if (!userInfo) {
-    return false;
-  }
-  return role;
-}
-
-
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST }
