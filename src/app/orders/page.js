@@ -69,7 +69,23 @@ export default function OrdersPage() {
                     }));
                 }
             });
-        } else {
+        } else if(order.status === 'delivered') {
+            fetch('/api/orders', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ _id: orderId, status: 'Clear' }),
+            }).then(res => {
+                if (res.ok) {
+                    setOrders(orders.map(order => {
+                        if (order._id === orderId) {
+                            return { ...order, status: 'clear' };
+                        }
+                        return order;
+                    }));
+                }
+            });
+
+        }else{
             return;
         }         
     }
@@ -126,6 +142,30 @@ export default function OrdersPage() {
         }
     }
 
+    function CalculateWaitTime(){
+        const placedCount = orders.filter(order => order.status === 'placed').length;
+        const inProgressCount = orders.filter(order => order.status === 'in-progress').length;
+        const completeCount = orders.filter(order => order.status === 'complete').length;
+
+ 
+        let waitTime = 0;
+        //per hour
+        const arrivalRate = placedCount + inProgressCount + completeCount;
+        const serviceRate = 15;
+        const Lq = Math.pow(arrivalRate, 2) / (serviceRate*( serviceRate - arrivalRate));
+        waitTime = (Lq / arrivalRate)*60;
+        
+
+       
+
+        return waitTime.toFixed(2) ; //minutes
+        
+    }
+
+    
+
+    
+
     return (
         <section className="mt-8 max-w-4xl">
             <div className="text-center">
@@ -144,12 +184,12 @@ export default function OrdersPage() {
                         <div className="grid grid-cols-4 gap-2 mt-4">
                             
                             <div className="bg-gray-400 rounded-lg p-4 ">
-                                <h1 className="text-2xl text-center"> Placed</h1>
+                                <h1 className="text-2xl text-center"> Placed </h1>
 
                                 {/* ORDER PROGRESS TILE */}
                                 {orders.filter(order => order.status === 'placed').map((order) => (
                                     
-                                    <OrderProgressTile key={order._id} order={order} onProceed={handleProceed} />
+                                    <OrderProgressTile key={order._id} order={order} onProceed={handleProceed} waitTime={CalculateWaitTime()} />
                          
                                 ))}
                                 {/* ORDER PROGRESS TILE */}
@@ -174,7 +214,7 @@ export default function OrdersPage() {
                             <div className="bg-gray-400 rounded-lg p-4">
                                 <h1 className="text-2xl text-center"> Delivered</h1>
                                 {orders.filter(order => order.status === 'delivered').map((order) => (
-                                    <OrderProgressTile key={order._id} order={order} onReverse={handleUndo}/>
+                                    <OrderProgressTile key={order._id} order={order} onProceed={handleProceed} onReverse={handleUndo}/>
                                 ))}
                             </div>
                         </div>
