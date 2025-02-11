@@ -229,14 +229,10 @@ export default function OrderPage() {
                 <div className="grid grid-cols-2 gap-16">
                     <div>
                         {order.cartProducts.map(product => (
-
                             <CartProduct product={product} onRemove={profileRole === 'businessOwner' ? handleRemoveProduct : undefined} />
-
-
-
                         ))}
                         <div className=" flex flex-col gap-2">
-                        <DeleteButton label={order.status !== 'cancelled' ? 'Cancel Order' : 'Reactivate Order'} onDelete={handleRemoveOrder} />
+                        {profileRole === 'businessOwner' && order.paid !== 'true' &&  ( <DeleteButton label={order.status !== 'cancelled' ? 'Cancel Order' : 'Reactivate Order'} onDelete={handleRemoveOrder} /> )} 
                         {profileRole === 'businessOwner' && order.paid !== 'true' && (<DeleteButton label={order.status !== 'cancelled' ? 'Cancel Payment' : 'Reactivate Payment'} onDelete={handleUpdatepayment} />)}
 
                         </div>
@@ -249,7 +245,7 @@ export default function OrderPage() {
                             <label>Name</label>
                             <input type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} disabled={(profileRole === "businesOwner" || profileRole === 'cashier' || profileRole === 'waiter')} />
                             <label>Phone Number</label>
-                            <input type="text" value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} disabled={(profileRole === "businesOwner" || profileRole === 'cashier' || profileRole === 'waiter')} />
+                            <input type="text" minLength="10" value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} disabled={(profileRole === "businesOwner" || profileRole === 'cashier' || profileRole === 'waiter')} />
                             <label className="flex flex-col">
                                 Dine in Or Takeaway:
                                 <select value={isDineIn} onChange={(e) => setIsDineIn(e.target.value === 'true')} disabled={(profileRole === "businesOwner" || profileRole === 'cashier' || profileRole === 'waiter')} >
@@ -264,12 +260,10 @@ export default function OrderPage() {
                                 </>
                             )}
                             <div className="flex flex-col gap-2">
-                                {!order.paid ? (<>
+                                {order.paid ==='false' ? (<>
                                     <button type="submit" >Pay Online RM{total}</button>
                                     <button type="button" onClick={() => updatePaymentStatus()} >Pay At Counter RM{total}</button>
-                                </>
-
-                                ) : <button disabled='true' className={order.paid ? 'bg-green-500' : 'bg-red-500'}>Paid RM{total}</button>}
+                                </>) : <button disabled='true' className={order.paid ? 'bg-green-500' : 'bg-green-500'}>Paid RM{total}</button>}
 
 
                                 {profileRole === 'businessOwner' && (

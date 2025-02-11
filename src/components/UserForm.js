@@ -22,7 +22,7 @@ export default function UserForm({user,onSave }) {
           <label>Change Password</label>
           <input type="password" placeholder="new password" value={password} onChange={ev => setPassword(ev.target.value)} />
           <label>Phone Number</label>
-          <input type="text" placeholder="phone" value={phone} onChange={ev => setPhone(ev.target.value)} />
+          <input type="text" minLength="10" placeholder="phone" value={phone} onChange={ev => setPhone(ev.target.value)} />
           <label className="flex flex-col">
                 Account Status:
                 <select value={active} onChange={ev => setActive(ev.target.value)}>
