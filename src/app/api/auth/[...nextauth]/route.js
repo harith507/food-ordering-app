@@ -1,16 +1,12 @@
 import clientPromise from "@/libs/mongoConnect";
-import {UserInfo} from "@/models/UserInfo";
 import bcrypt from "bcrypt";
 import * as mongoose from "mongoose";
 import {User} from '@/models/User';
 import NextAuth, {getServerSession} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
-import { MongoDBAdapter } from "@auth/mongodb-adapter"
 
 export const authOptions = {
   secret: process.env.SECRET,
-  adapter: MongoDBAdapter(clientPromise),
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -39,11 +35,11 @@ export const authOptions = {
 
 export async function isAdmin() {
   const session = await getServerSession(authOptions);
-  const userEmail = session?.user?.email;
+  const userEmail = session?.user?.role;
   if (!userEmail) {
     return false;
   }
-  const userInfo = await UserInfo.findOne({email:userEmail});
+  const userInfo = await User.findOne({email:userEmail});
   if (!userInfo) {
     return false;
   }
