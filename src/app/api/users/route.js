@@ -7,7 +7,6 @@ export async function GET(){
     return Response.json(users);
 }
 
-// New PATCH endpoint to update user status
 export async function PATCH(request) {
     mongoose.connect(process.env.MONGO_URL);
     const { id, active } = await request.json();

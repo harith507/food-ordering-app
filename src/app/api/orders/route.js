@@ -1,16 +1,9 @@
 import mongoose from "mongoose";
-import { authOptions } from "../auth/[...nextauth]/route";
 import { Order } from "@/models/Order";
 
 export async function GET(req) {
     mongoose.connect(process.env.MONGO_URL);
-
-    // const session = await getServerSession(authOptions);
-
-    // const role = session?.user?.role;
-
     const url = new URL(req.url);
-
     const orderId = url.searchParams.get('_id');
     const today = url.searchParams.get('today');
 
