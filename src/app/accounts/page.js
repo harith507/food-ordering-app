@@ -71,8 +71,8 @@ error: "Failed",
         return <p>Loading...</p>;
     }
 
-    if(profileRole === "waiter"|| profileRole === "kitchenStaff" || profileRole === "cashier"||profileRole === " "){
-        return redirect("/login");
+    if(profileRole !== "businessOwner"){
+        return <p>Please return, you have no authorization on this page!</p>;
     }
 
     return(

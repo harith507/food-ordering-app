@@ -2,12 +2,19 @@ import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/utils/authOptions";
 import { User } from "@/models/User";
+import bcrypt from "bcrypt"; // Added for password encryption
 
 export async function PUT(req) {
   mongoose.connect(process.env.MONGO_URL);
-  const data = await req.json();
+  let data = await req.json();
+  
+  
+  if (data.password) {
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(data.password, salt);
+    data = { ...data, password: hashedPassword };
+  }
   const { _id, email } = data;
-
   if (_id) {
     await User.findOneAndUpdate({ _id }, data);
   } else if (email) {

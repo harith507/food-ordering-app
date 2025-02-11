@@ -68,8 +68,8 @@ export default function RegisterPage() {
                 <input type="password" placeholder="password" value={password} disabled={creatingUser} onChange={ev => setPassword(ev.target.value)} />
                 <label>Username</label>
                 <input type="text" placeholder="username" value={username} disabled={creatingUser} onChange={ev => setUsername(ev.target.value)} />
-                <label>Email</label>
-                <input type="text" placeholder="phone number" value={phone} disabled={creatingUser} onChange={ev => setPhone(ev.target.value)} />
+                <label>Phone Number</label>
+                <input type="text" placeholder="phone number" value={phone} disabled={creatingUser} minLength="10" onChange={ev => setPhone(ev.target.value)} />
 
                 <label className="flex flex-col">
                     Pick a role:

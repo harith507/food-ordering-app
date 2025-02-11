@@ -50,7 +50,7 @@ export default function MenuPage() {
                 <div>
                     <div className="text-center">
                         <SectionHeaders key={c._id} mainHeader={c.name} />
-                        <span className="text-lg">Average Wait Time to Complete Order {CalculateWaitTime() ==="NaN"? 'is Imidiately':CalculateWaitTime()+" minutes"} </span>
+                        <span className="text-lg">Average Wait Time to Complete Order {CalculateWaitTime() ==="NaN"? 'is Imidiately': CalculateWaitTime() < -0 ? "is Going to Take More Than 1 Hours" : CalculateWaitTime()+" minutes" } </span>
                     
                     </div>
                     <div className="grid grid-cols-3 gap-4 mt-6 mb-12">

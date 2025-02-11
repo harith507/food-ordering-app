@@ -249,7 +249,7 @@ export default function OrderPage() {
                             <label>Name</label>
                             <input type="text" value={customerName} onChange={(e) => setCustomerName(e.target.value)} disabled={(profileRole === "businesOwner" || profileRole === 'cashier' || profileRole === 'waiter')} />
                             <label>Phone Number</label>
-                            <input type="text" value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} disabled={(profileRole === "businesOwner" || profileRole === 'cashier' || profileRole === 'waiter')} />
+                            <input type="text" minLength="10" value={customerPhone} onChange={(e) => setCustomerPhone(e.target.value)} disabled={(profileRole === "businesOwner" || profileRole === 'cashier' || profileRole === 'waiter')} />
                             <label className="flex flex-col">
                                 Dine in Or Takeaway:
                                 <select value={isDineIn} onChange={(e) => setIsDineIn(e.target.value === 'true')} disabled={(profileRole === "businesOwner" || profileRole === 'cashier' || profileRole === 'waiter')} >

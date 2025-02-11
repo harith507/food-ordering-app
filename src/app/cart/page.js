@@ -109,7 +109,7 @@ export default function Home() {
                         <label>Email</label>
                         <input type="email" value={customerEmail} onChange={ev => setcustomerEmail(ev.target.value)} required placeholder="Email" />
                         <label>Phone Number</label>
-                        <input type="text" value={customerPhone} onChange={ev => setCustomerPhone(ev.target.value)} required placeholder="Phone Number" />
+                        <input type="text" value={customerPhone} minLength="10" onChange={ev => setCustomerPhone(ev.target.value)} required placeholder="Phone Number" />
                         <label className="flex flex-col">
                             Dine in Or Takeaway:
                             <select value={dineOrTakeaway} onChange={ev => SetDineOrTakeaway(ev.target.value)}>
@@ -120,7 +120,7 @@ export default function Home() {
                         {dineOrTakeaway === 'dine' && (
                             <>
                                 <label>Table Number</label>
-                                <input type="text" value={customerTable} onChange={ev => setCustomerTable(ev.target.value)} required placeholder="..." />
+                                <input type="text" required value={customerTable} onChange={ev => setCustomerTable(ev.target.value)} required placeholder="..." />
                             </>
                         )}
 
