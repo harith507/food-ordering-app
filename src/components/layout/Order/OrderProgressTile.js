@@ -1,17 +1,19 @@
 import Link from "next/link";
 import moment from "moment";
+import UseProfile from "@/components/UseProfile";
 
 export default function OrderProgressTile({ order, onProceed, onReverse, waitTime }) {
     const createdAt = new Date(order.updatedAt);
-    
     const estimatedAt = moment(createdAt).add(waitTime, 'm').toDate();
-    console.log('waitTime dlm tile',waitTime)
+    
+    const {loading:profileLoading, role:profileRole} = UseProfile();
+
     return (
         <form key={order._id}>
             <div className="bg-gray-200 rounded-lg p-4 mt-2 flex">
                 <div className="flex flex-col items-start space-y-2">
-                    <Link href={"/orders/"+order._id}>
-                        <span className="text-sm font-semibold">Table {order.tableNumber}</span>
+                     <Link href={"/orders/"+order._id}>
+                        <span className="text-sm font-semibold"> {order.isDineIn ? 'Table '+ order.tableNumber : order.customerName } </span>
                         <div className="flex flex-col gap-1">
                             <span className="text-sm">
                                 Created: {createdAt.toLocaleString("en-GB", { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: "Asia/Kuala_Lumpur" })}
@@ -40,14 +42,17 @@ export default function OrderProgressTile({ order, onProceed, onReverse, waitTim
                             </div>
                         ))}
                     </Link>
-                    <div className="grid grid-cols-2 gap-2 items-center text-center justify-center">
-                        {onReverse && (
-                            <button className="p-2 bg-red-500" type="button" onClick={() => onReverse(order._id)}>Undo</button>
-                        )}
-                        {onProceed && (
-                            <button className="px-1 py-2 bg-green-500" type="button" onClick={() => onProceed(order._id)}>Proceed</button>
-                        )}
-                    </div>
+                    {(profileRole === "businessOwner" || profileRole === "waiter" || profileRole === "kitchenStaff" || profileRole === "cashier") && (
+                         <div className="grid grid-cols-2 gap-2 items-center text-center justify-center">
+                         {onReverse && (
+                             <button className="p-2 bg-red-500" type="button" onClick={() => onReverse(order._id)}>Undo</button>
+                         )}
+                         {onProceed && (
+                             <button className="px-1 py-2 bg-green-500" type="button" onClick={() => onProceed(order._id)}>Proceed</button>
+                         )}
+                     </div>
+                    ) }
+                   
                 </div>
             </div>
         </form>

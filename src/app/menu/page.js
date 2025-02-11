@@ -3,9 +3,6 @@ import MenuItem from "@/components/layout/Menu/MenuItem";
 import SectionHeaders from "@/components/layout/SectionHeaders";
 import { useEffect, useState } from "react";
 
-
-
-
 export default function MenuPage() { 
 
     const[menuItems, setMenuItems] = useState([]);
@@ -53,7 +50,7 @@ export default function MenuPage() {
                 <div>
                     <div className="text-center">
                         <SectionHeaders key={c._id} mainHeader={c.name} />
-                        <span className="text-lg">Average Wait Time To Complete Order {CalculateWaitTime()} minutes</span>
+                        <span className="text-lg">Average Wait Time to Complete Order {CalculateWaitTime() ==="NaN"? 'is Imidiately':CalculateWaitTime()+" minutes"} </span>
                     
                     </div>
                     <div className="grid grid-cols-3 gap-4 mt-6 mb-12">

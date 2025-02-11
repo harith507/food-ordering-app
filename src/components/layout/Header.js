@@ -40,7 +40,7 @@ export default function Header() {
                 {status === 'unauthenticated' && (
                     <>
                         <Link href={'/login'}  > Login </Link>
-                        <Link href={'/register'} className="bg-primary text-white rounded-full px-8 py-2" > Register</Link>
+                       
 
                     </>
                 )}

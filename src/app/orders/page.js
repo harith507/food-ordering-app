@@ -170,9 +170,14 @@ export default function OrdersPage() {
         <section className="mt-8 max-w-4xl">
             <div className="text-center">
                 <SectionHeaders mainHeader="Order Progress" />
-                <Link href="/orders/history"> 
-                <SectionHeaders subHeader="Order History" />    
-                </Link>
+               
+                {profileRole === 'businessOwner' &&(
+                     <Link href="/orders/history"> 
+                    <SectionHeaders subHeader="Order History" /> 
+                    </Link>
+                )}
+                   
+       
                 <Tabs role={profileRole}/>
                 
 

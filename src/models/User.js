@@ -7,7 +7,8 @@ const UserSchema = new Schema({
     username:{type: String, required: true, unique: true},
     password: {type: String, required: true},
     phone:{type: String, required: true},
-    role:{type: String, required: true, enum: ["businessOwner", "waiter", "kitchenStaff","cashier"], default: "waiter"}
+    role:{type: String, required: true, enum: ["businessOwner", "waiter", "kitchenStaff","cashier"], default: "waiter"},
+    active:{type: Boolean, default: true},
 },{timestamps: true}) 
 
 export const User = models?.User || model("User", UserSchema);

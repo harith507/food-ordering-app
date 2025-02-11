@@ -181,7 +181,7 @@ export default function DashboardPage() {
                 </div>
                 <div className="bg-gray-300 rounded-lg py-4 px-3 flex flex-col">
                 <span className="text-lg">Current Wait Time</span>
-                <span className="text-lg text-center">{CalculateWaitTime()} Minutes</span>
+                <span className="text-lg text-center">{CalculateWaitTime() ==="NaN"? 0:CalculateWaitTime()} Minutes</span>
                 </div>
             </div>
             <div className="bg-gray-300 mt-2 rounded-lg p-4">

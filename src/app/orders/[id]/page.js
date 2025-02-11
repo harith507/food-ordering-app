@@ -91,7 +91,7 @@ export default function OrderPage() {
 
         await toast.promise(creationPromise, {
             loading: newStatus === 'cancelled' ? 'Cancelling Order' : 'Reactivating Order',
-            success: newStatus === 'cancelled' ? "Order Reactivated" : "Order Cancelled",
+            success: newStatus === 'cancelled' ? "Order Cancelled" : "Order Reactivated",
             error: "Error",
         });
 
