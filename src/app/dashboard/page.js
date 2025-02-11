@@ -1,8 +1,10 @@
 'use client';
 import UseProfile from "@/components/UseProfile";
 import Tabs from "@/components/layout/Tabs";
-import Chart from "react-apexcharts";
+import dynamic from 'next/dynamic'; // added
 import { useEffect, useState } from "react";
+
+const Chart = dynamic(() => import("react-apexcharts"), { ssr: false }); // added
 
 export default function DashboardPage() { 
 
