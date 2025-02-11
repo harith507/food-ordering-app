@@ -229,14 +229,10 @@ export default function OrderPage() {
                 <div className="grid grid-cols-2 gap-16">
                     <div>
                         {order.cartProducts.map(product => (
-
                             <CartProduct product={product} onRemove={profileRole === 'businessOwner' ? handleRemoveProduct : undefined} />
-
-
-
                         ))}
                         <div className=" flex flex-col gap-2">
-                        {profileRole === 'businessOwner' && ( <DeleteButton label={order.status !== 'cancelled' ? 'Cancel Order' : 'Reactivate Order'} onDelete={handleRemoveOrder} /> )} 
+                        {profileRole === 'businessOwner' && order.paid !== 'true' &&  ( <DeleteButton label={order.status !== 'cancelled' ? 'Cancel Order' : 'Reactivate Order'} onDelete={handleRemoveOrder} /> )} 
                         {profileRole === 'businessOwner' && order.paid !== 'true' && (<DeleteButton label={order.status !== 'cancelled' ? 'Cancel Payment' : 'Reactivate Payment'} onDelete={handleUpdatepayment} />)}
 
                         </div>
