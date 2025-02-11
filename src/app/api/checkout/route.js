@@ -31,7 +31,7 @@ export async function POST(req) {
         let productPrice = productInfo.basePrice;
         if (cartProduct.extraOptions?.length > 0) {
             for (const extraOption of cartProduct.extraOptions) {
-                const option = productInfo.extraOptions.find(option => option._id.toString() === extraOption.extraOptions._id.toString());
+                const option = productInfo.extraOptions.find(option => option._id.toString() === extraOption._id.toString());
                 productPrice += option.price;
             }
         }
