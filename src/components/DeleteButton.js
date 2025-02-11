@@ -9,7 +9,7 @@ export default function DeleteButton({ label, onDelete }) {
             <>
                 <div className="fixed bg-black/80 inset-0 items-center flex h-full justify-center">
                     <div className="bg-white p-4 rounded-lg shadow-lg">
-                        <div className="font-semibold mb-2">Are you sure you want to delete?</div>
+                        <div className="font-semibold mb-2">Are you sure you want to proceed?</div>
                         <div className="flex gap-2 ">
 
                             <button className=" bg-red-500" onClick={() => onDelete()}>Yes</button>
