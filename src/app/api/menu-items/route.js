@@ -7,6 +7,11 @@ export async function POST(req) {
 
     const data = await req.json();
 
+    // Remove empty category value to avoid casting error.
+    if (data.category === "") {
+        delete data.category;
+    }
+
     const menutItemDoc = await MenuItem.create(data);
     return Response.json(menutItemDoc);
 
@@ -17,6 +22,12 @@ export async function POST(req) {
 export async function PUT(req) {
     mongoose.connect(process.env.MONGO_URL);
     const {_id, ...data} = await req.json();
+    
+    // Remove empty category value to avoid casting error.
+    if (data.category === "") {
+        delete data.category;
+    }
+
     await MenuItem.findByIdAndUpdate(_id, data);
     return Response.json(true);
 }
