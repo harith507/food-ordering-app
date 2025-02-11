@@ -75,8 +75,6 @@ error: "Failed",
         return redirect("/login");
     }
 
-    console.log(users);
-
     return(
         <section className="mt-8">
             <Tabs role={profileRole} />
