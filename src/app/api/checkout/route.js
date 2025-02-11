@@ -50,7 +50,7 @@ export async function POST(req) {
     }
 
     // Ensure NEXTAUTH_URL is defined and normalized with a trailing slash
-    const baseUrl = process.env.NEXTAUTH_URL;
+    const baseUrl = process.env.NEXTAuth_URL;
     if (!baseUrl) {
         throw new Error("NEXTAUTH_URL is not defined");
     }
