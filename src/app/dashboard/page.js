@@ -48,84 +48,59 @@ export default function DashboardPage() {
         return <div>Please return, you have no authorization on this page!</div>
     }
 
-    const chartConfig = {
-        type: "line",
-        height: 240,
-        series: [
-          {
-            name: "Sales",
-            data: chartData.series,
-          },
-        ],
-        options: {
-          chart: {
-            toolbar: {
-              show: false,
-            },
-          },
-          title: {
-            show: "",
-          },
-          dataLabels: {
-            enabled: false,
-          },
-          colors: ["#020617"],
-          stroke: {
-            lineCap: "round",
-            curve: "smooth",
-          },
-          markers: {
-            size: 0,
-          },
-          xaxis: {
-            axisTicks: {
-              show: false,
-            },
-            axisBorder: {
-              show: false,
-            },
-            labels: {
-              style: {
-                colors: "#616161",
-                fontSize: "12px",
-                fontFamily: "inherit",
-                fontWeight: 400,
+    // Removed variable chartConfig and added the function getChartConfig:
+    function getChartConfig() {
+        return {
+            type: "line",
+            height: 240,
+            series: [
+              {
+                name: "Sales",
+                data: chartData.series,
               },
-            },
-            categories: chartData.categories, // Use computed categories
-          },
-          yaxis: {
-            labels: {
-              style: {
-                colors: "#616161",
-                fontSize: "12px",
-                fontFamily: "inherit",
-                fontWeight: 400,
+            ],
+            options: {
+              chart: { toolbar: { show: false } },
+              title: { show: "" },
+              dataLabels: { enabled: false },
+              colors: ["#020617"],
+              stroke: { lineCap: "round", curve: "smooth" },
+              markers: { size: 0 },
+              xaxis: {
+                axisTicks: { show: false },
+                axisBorder: { show: false },
+                labels: {
+                  style: {
+                    colors: "#616161",
+                    fontSize: "12px",
+                    fontFamily: "inherit",
+                    fontWeight: 400,
+                  },
+                },
+                categories: chartData.categories,
               },
-            },
-          },
-          grid: {
-            show: true,
-            borderColor: "#dddddd",
-            strokeDashArray: 5,
-            xaxis: {
-              lines: {
+              yaxis: {
+                labels: {
+                  style: {
+                    colors: "#616161",
+                    fontSize: "12px",
+                    fontFamily: "inherit",
+                    fontWeight: 400,
+                  },
+                },
+              },
+              grid: {
                 show: true,
+                borderColor: "#dddddd",
+                strokeDashArray: 5,
+                xaxis: { lines: { show: true } },
+                padding: { top: 5, right: 20 },
               },
+              fill: { opacity: 0.8 },
+              tooltip: { theme: "dark" },
             },
-            padding: {
-              top: 5,
-              right: 20,
-            },
-          },
-          fill: {
-            opacity: 0.8,
-          },
-          tooltip: {
-            theme: "dark",
-          },
-        },
-      };
+        };
+    }
 
       function CalculateWaitTime(){
         const placedCount = orders.filter(order => order.status === 'placed').length;
@@ -191,7 +166,7 @@ export default function DashboardPage() {
             </div>
             <div className="bg-gray-300 mt-2 rounded-lg p-4">
             <span className="text-lg">Daily Sales</span>
-            <Chart {...chartConfig} />
+            <Chart {...getChartConfig()} />
             </div>
         </div>
      </section>
